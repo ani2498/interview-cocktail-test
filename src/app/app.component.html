@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="header">
+    <div>
+      <p class="brand">COCKTAILS</p>
+      <p class="tagline">Never Sacrifice Flavour</p>
+    </div>
+  </div>
+
+  <div class="row actions">
+
+    <div class="col-lg-3">
+      <label>Sort by:</label>
+      <select name="sortBy" [(ngModel)]="sort" class="form-control" (change)="onSortDrinks()">
+        <option value="ASC">Name: A to Z</option>
+        <option value="DESC">Name: Z to A</option>
+      </select>
+    </div>
+
+    <div class="col-lg-3">
+      <label>Category:</label>
+      <select name="category" [(ngModel)]="category" class="form-control"
+        (change)="fetchDrinksByCategoryOrIngredient('c', category)">
+        <option value="notset" disabled>Not Set</option>
+        <option [value]="category.strCategory" *ngFor="let category of categoriesArray">{{ category.strCategory }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-lg-3">
+      <label>Ingredient:</label>
+      <select name="ingredient" [(ngModel)]="ingredient" class="form-control"
+        (change)="fetchDrinksByCategoryOrIngredient('i', ingredient)">
+        <option value="notset" disabled>Not Set</option>
+        <option [value]="ingredient.strIngredient1" *ngFor="let ingredient of ingredientsArray">{{
+          ingredient.strIngredient1 }}</option>
+      </select>
+    </div>
+
+    <div class="col-lg-3">
+      <label>Search:</label>
+      <input type="search" class="form-control" placeholder="Search by name" (keyup)="onSearchDrinks(s.value)" #s>
+    </div>
+
+  </div>
+
+  <div class="row col-lg-12">
+
+    <div class="col-lg-4 item" *ngFor="let item of drinksArray">
+      <div class="item__inner" ngbTooltip="Add rum & trister then, add cranberry jucie,stir">
+        <p class="drink_id">#{{ item.idDrink }}</p>
+        <p class="title">{{ item.strDrink }}</p>
+        <img [src]="item.strDrinkThumb" alt="">
+        <div class="item__details">
+          <p class="category">
+            <strong>Category: </strong>Cocktail
+          </p>
+          <p class="type">
+            <strong>Type: </strong>Mild Alcoholic
+          </p>
+          <p class="ingredients">
+            <strong>Ingredients: </strong>Malibu rum (2 parts), Tropicana (1 part), Cranberry Juice (2 parts)
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row offset-lg-5 col-lg-6" *ngIf="drinksArray.length === 0">
+    <p>No Drinks Found!</p>
+  </div>
+</div>
